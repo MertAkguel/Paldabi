@@ -230,19 +230,19 @@ TRT test_BONUS(string filename)
 
 int main(int argc, const char * argv[])
 {
-  /*if (argc != 2)
+  if (argc != 2)
   {
     std::cerr << "Usage: " << argv[0] << " <folder-to-genome-files (random100M.text)>\n"
               << "  e.g. " << argv[0] << " c:\\temp\\\n";
     return -1;
   }
-  string file = argv[1];*/
+  string file = argv[1];
   
 
   int points = 0;
   
   // even if OMP is supported, do all the tests without parallelization (since hits might be in mangled order due to partial sums)
-  //omp_set_num_threads(1);
+  omp_set_num_threads(1);
 
   report(points, &test_CTor, "test_CTor");
   report(points, &test_exceptions, "test_exceptions");
@@ -252,7 +252,7 @@ int main(int argc, const char * argv[])
   report(points, &test_getHits, "test_getHits");
 
   // bonus points
-  //report(points, [&file]() { return test_BONUS(file);}, "test_BONUS OpenMP");
+  report(points, [&file]() { return test_BONUS(file);}, "test_BONUS OpenMP");
 
   std::cout << "Final score: " << points << "\n\n";
 

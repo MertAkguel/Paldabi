@@ -1,7 +1,8 @@
-
+#pragma once
 
 #include <vector>
 #include <string>
+#include <cstdlib>
 
 /**
    The Q-Gram-Index implementation using Counting Sort for SA Construction
@@ -79,8 +80,13 @@ public:
     uint32_t hashNext(const uint32_t prev_hash, const char new_pos) const;
 
 private:
-   // YOUR PRIVATE MEMBER FUNCTIONS and VARIABLES HERE
+    std::string text;
+    uint8_t q;
+    std::vector<uint32_t> dir{};
+    std::vector<uint32_t> suftab{};
 
-
+    ///@brief Bestimmt die größe des QGI, ersetzt pow(4,q) (4^q)
+    unsigned long construct_QGI() const;
+    
 };
 
