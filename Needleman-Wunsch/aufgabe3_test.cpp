@@ -36,7 +36,7 @@ bool test_align()
     string m2 = "-EANANA-----";
     string gg = " |          ";
     std::cout << "Alignment test default:\n  got: \n" << s1 << "\n" << g << "\n" << s2 << "\n" << align.score() << "\n  expected: \n"
-        << m1 << "\n" << gg << "\n" << m2 << "\n" << "-8\n";
+              << m1 << "\n" << gg << "\n" << m2 << "\n" << "-8\n";
 
     string seq_3 = "IMISSMISSISSIPPI";
     string seq_4 = "MYMISSISAHIPPIE";
@@ -49,7 +49,7 @@ bool test_align()
     string m4 = "-M--YMISSISAHIPPIE";
     string gg2 = " |   ||||||  |||| ";
     std::cout << "Alignment test clear:\n  got: \n" << s3 << "\n" << g2 << "\n" << s4 << "\n" << align2.score() << "\n  expected: \n"
-        << m3 << "\n" << gg2 << "\n" << m4 << "\n" << "-5\n";
+              << m3 << "\n" << gg2 << "\n" << m4 << "\n" << "-5\n";
 
     string seq_5 = "LEFT";
     string seq_6 = "XXXLEFT";
@@ -62,7 +62,7 @@ bool test_align()
     string m6 = "XXXLEFT";
     string gg3 = "   ||||";
     std::cout << "Alignment test leftgap:\n  got: \n" << s5 << "\n" << g3 << "\n" << s6 << "\n" << align3.score() << "\n  expected: \n"
-        << m5 << "\n" << gg3 << "\n" << m6 << "\n" << "-6\n";
+              << m5 << "\n" << gg3 << "\n" << m6 << "\n" << "-6\n";
 
     // test corner cases:
     // empty alignment:
@@ -73,12 +73,12 @@ bool test_align()
     string e1, ge1, e2;
     align4.getAlignment(e1, ge1, e2);
     std::cout << "Alignment test empty:\n  got: \n" << e1 << "\n" << ge1 << "\n" << e2 << "\n" << align4.score() << "\n  expected: \n"
-        << "''" << "\n" << "''" << "\n" << "''" << "\n" << "0\n";
+              << "''" << "\n" << "''" << "\n" << "''" << "\n" << "0\n";
 
     return (s1 == m1 && s2 == m2 && g == gg && align.score() == -8 &&
-        s3 == m3 && s4 == m4 && g2 == gg2 && align2.score() == -5 &&
-        s5 == m5 && s6 == m6 && g3 == gg3 && align3.score() == -6 &&
-        e1 == "" && ge1 == "" && e2 == "" && align4.score() == 0);
+            s3 == m3 && s4 == m4 && g2 == gg2 && align2.score() == -5 &&
+            s5 == m5 && s6 == m6 && g3 == gg3 && align3.score() == -6 &&
+            e1 == "" && ge1 == "" && e2 == "" && align4.score() == 0);
 }
 
 bool test_repeat()
@@ -163,9 +163,9 @@ int test_Smith()
         string s1, g, s2;
         align.getAlignment(s1, g, s2);
         std::cout << "\nLOCAL Alignment test 1\n"
-            << "     got: \n" << s1 << "\n" << g << "\n" << s2 << "\nscore: " << align.score() << "\n"
-            << "expected: \n"
-            << m1 << "\n" << gg << "\n" << m2 << "\nscore: 27\n";
+                  << "     got: \n" << s1 << "\n" << g << "\n" << s2 << "\nscore: " << align.score() << "\n"
+                  << "expected: \n"
+                  << m1 << "\n" << gg << "\n" << m2 << "\nscore: 27\n";
         if (s1 == m1 && s2 == m2 && g == gg && align.score() == 27)
         {
             std::cout << "local alignment big test: success\n";
@@ -184,9 +184,9 @@ int test_Smith()
         s1 = "garbage", g = "garbage", s2 = "garbage";
         align2.getAlignment(s1, g, s2);
         std::cout << "\nLOCAL Alignment test 2 (corner case)\n"
-            << "     got: \n" << s1 << "\n" << g << "\n" << s2 << "\nscore: " << align2.score() << "\n"
-            << "expected: \n"
-            << m1 << "\n" << gg << "\n" << m2 << "\nscore: 0\n";
+                  << "     got: \n" << s1 << "\n" << g << "\n" << s2 << "\nscore: " << align2.score() << "\n"
+                  << "expected: \n"
+                  << m1 << "\n" << gg << "\n" << m2 << "\nscore: 0\n";
         if (s1 == m1 && s2 == m2 && g == gg && align2.score() == 0)
         {
             std::cout << "local alignment corner case test: success\n";
@@ -227,9 +227,9 @@ int main()
     std::cout << "current points: " << points << "\n";
 
     // additional points
-    //int p = test_Smith(); //4 max
-    //std::cout << "      o test_Smith extra points: " << p << "!\n";
-    //points += p;
+    int p = test_Smith(); //4 max
+    std::cout << "      o test_Smith extra points: " << p << "!\n";
+    points += p;
 
     std::cout << "Final score: " << points << " of 10.\n\n";
 

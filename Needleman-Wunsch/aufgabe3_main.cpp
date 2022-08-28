@@ -3,7 +3,7 @@
 #include <vector>
 #include "Alignment.hpp"
 
-
+/*
 int main(int argc, char* argv[])
 {
     std::string seqv = argv[1];
@@ -13,7 +13,7 @@ int main(int argc, char* argv[])
     if (argc == 3)
     {
         a.compute(3, -1 - 2, false);
-        
+
         a.getAlignment(s,t,u);
         std::cout << "score:" << a.score() << std::endl;
     }
@@ -28,7 +28,7 @@ int main(int argc, char* argv[])
         a.compute(match, mismatch, gap);
         a.getAlignment(s, t, u);
         std::cout << "score:" << a.score() << std::endl;
-        
+
     }
     else if (argc == 7)
     {
@@ -49,3 +49,4 @@ int main(int argc, char* argv[])
 
 
 }
+*/
