@@ -4,78 +4,84 @@
 
 char complement(char const x) {
 
-	char y;
-	if (x == 'A')
-	{
-		y = 'T';
-	}
-	else if (x == 'T')
-	{
-		y = 'A';
-	}
-	else if (x == 'C')
-	{
-		y = 'G';
-	}
-	else if (x == 'G')
-	{
-		y = 'C';
-	}
-	else { std::cout << "input is not from alphabet {ACGT}" << std::endl; }
+    char y; // deklariere Variable für Rückgabewert
+    // check which letter is x
+    if (x == 'A')
+    {
+        y = 'T';
+    }
+    else if (x == 'T')
+    {
+        y = 'A';
+    }
+    else if (x == 'C')
+    {
+        y = 'G';
+    }
+    else if (x == 'G')
+    {
+        y = 'C';
+    }
+    else { std::cout << "input is not from alphabet {ACGT}" << std::endl; }
 
-	return y;
+    return y;
 }
 
 /// reverse a DNA string and complement all bases
 std::string reverseComplement(std::string const& input)
 {
-	std::string ausgabe;
-	for (unsigned i = 0; i < input.size(); i++)
-	{
-		ausgabe += complement(input[input.size() - i - 1]);
-	}
-	return ausgabe;
+    std::string ausgabe;
+    for (unsigned i = 0; i < input.size(); i++)
+    {
+        // go backwards through the input string and make the complement
+        ausgabe += complement(input[input.size() - i - 1]);
+    }
+    return ausgabe;
 }
 
 /// read a FASTA entry from a file, returning a pair containing meta data and sequence (without linebreaks or whitespace)
-/// Returns a pair with empty strings if @p in_file is not readable 
+/// Returns a pair with empty strings if @p in_file is not readable
 std::pair<std::string, std::string> readFasta(std::string const& in_file)
 {
-	std::pair <std::string, std::string > fastaread;
-	std::string zeilenleser;
-	std::ifstream f;
-	f.open(in_file);
-	if (!f.good())
-	{
+    std::pair <std::string, std::string > fastaread;
+    std::string zeilenleser;
+    std::ifstream f;
+    f.open(in_file);
+    // if in_file is not readable
+    if (!f.good())
+    {
 
-		fastaread.first = "";
-		fastaread.second = "";
-		return fastaread;
+        fastaread.first = "";
+        fastaread.second = "";
+        return fastaread;
 
-	}
-	/*if (fastaread.first == "" || fastaread.second == "")
-	{
-		std::cerr << in_file << " is not readable" << std::endl;
-	}*/
-	int counter = 0;
-	while (!f.eof())
-	{
-		if (counter == 0)
-		{
-			std::getline(f, zeilenleser);
-			fastaread.first += zeilenleser;
-			//fastaread.first += "\n";
-			counter++;
-		}
-		else {
-			std::getline(f, zeilenleser);
-			fastaread.second += zeilenleser;
-		}
-	}
-	f.close();
+    }
+    /*if (fastaread.first == "" || fastaread.second == "")
+    {
+        std::cerr << in_file << " is not readable" << std::endl;
+    }*/
+
+    int counter = 0; // number of rows
+    while (!f.eof())
+    {
+        // get the meta data
+        if (counter == 0)
+        {
+            std::getline(f, zeilenleser);
+            fastaread.first += zeilenleser;
+            //fastaread.first += "\n";
+            counter++;
+        }
+        // get the sequence
+        else {
+            std::getline(f, zeilenleser);
+            fastaread.second += zeilenleser;
+        }
+    }
+    f.close();
 
 
-	return fastaread;
+    return fastaread;
 
 }
 
@@ -83,57 +89,57 @@ std::pair<std::string, std::string> readFasta(std::string const& in_file)
 /// Upon writing, sequence is split such that each line is 80 characters long (the last line can be shorter of course)
 /// Return true on success, false otherwise (e.g. @p out_file not writable)
 bool writeFasta(std::string const& out_file,
-	std::string const& meta,
-	std::string const& seq)
+                std::string const& meta,
+                std::string const& seq)
 {
 
-	// did not return false when function is not writeable
-	std::ofstream f(out_file);
-	if (!f.good())
-	{
-		//std::cerr << out_file << " not writable!";
-		return false;
-	}
-	f << meta << std::endl;
-	std::string zwischenspeicher = "";
+    // did not return false when function is not writeable
+    std::ofstream f(out_file);
+    if (!f.good())
+    {
+        //std::cerr << out_file << " not writable!";
+        return false;
+    }
+    f << meta << std::endl;
+    std::string zwischenspeicher = "";
 
-	for (unsigned i = 0; i < seq.size(); i++)
-	{
-		zwischenspeicher += seq[i];
+    for (unsigned i = 0; i < seq.size(); i++)
+    {
+        zwischenspeicher += seq[i];
+        // line break if we have 80 letters
+        if (zwischenspeicher.size() == 80)
+        {
+            zwischenspeicher += "\n";
+            f << zwischenspeicher;
+            zwischenspeicher = "";
 
-		if (zwischenspeicher.size() == 80)
-		{
-			zwischenspeicher += "\n";
-			f << zwischenspeicher;
-			zwischenspeicher = "";
+        }
 
-		}
-
-	}
-	f << zwischenspeicher;
-	f.close();
-	return true;
+    }
+    f << zwischenspeicher;
+    f.close();
+    return true;
 }
 
 /// read a FASTA file with a single sequence, and store the sequence's reverse complement in @p output_file
 /// Uses @p readFasta() and @p writeFasta() internally.
 /// Returns true on success, false otherwise (in_file not readable, or out_file not writable)
 bool reverseComplementFASTA(std::string const& input_file,
-	std::string const& output_file)
+                            std::string const& output_file)
 {
 
-	std::ofstream f(output_file);
-	std::ifstream g(input_file);
-	if (!f.good() || !g.good())
-	{
+    std::ofstream f(output_file);
+    std::ifstream g(input_file);
+    if (!f.good() || !g.good())
+    {
 
-		return false;
-	}
+        return false;
+    }
 
-
-	std::pair <std::string, std::string> zwischenspeicher = readFasta(input_file);
-
-	return writeFasta(output_file, zwischenspeicher.first, reverseComplement(zwischenspeicher.second));
+    // reading fasta file
+    std::pair <std::string, std::string> zwischenspeicher = readFasta(input_file);
+    // build the reverse complement Fasta
+    return writeFasta(output_file, zwischenspeicher.first, reverseComplement(zwischenspeicher.second));
 
 
 

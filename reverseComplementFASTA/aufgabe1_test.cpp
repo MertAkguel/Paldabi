@@ -1,5 +1,5 @@
 /// This file tests the interface (functions) defined in aufgabe1.hpp.
-/// Implement the functions in aufgabe1.cpp (case sensitive name, i.e. do not use another name!) and 
+/// Implement the functions in aufgabe1.cpp (case sensitive name, i.e. do not use another name!) and
 ///
 /// compile with
 ///    g++ -std=c++17 -Wall -pedantic -O0 aufgabe1.cpp aufgabe1_test.cpp -o aufgabe1_test
@@ -37,7 +37,7 @@ void test_readAndWriteFASTA(std::string const& seq, std::string const& a1_test_f
 {
     std::cout << "Testing 'readAndWriteFASTA()' ... ";
     /// read a FASTA entry from a file, returning a pair containing meta data and sequence
-    /// Returns a pair with empty strings if in_file not readable 
+    /// Returns a pair with empty strings if in_file not readable
 
     // test corner cases:
     std::pair<std::string, std::string> entry = readFasta("/this/file/does/not/exist");
@@ -50,7 +50,7 @@ void test_readAndWriteFASTA(std::string const& seq, std::string const& a1_test_f
         exit(1); // return with 1 (error)
     }
 
-    // test actual data  
+    // test actual data
     // create a file first:
     if (!writeFasta(a1_test_file, ">meta", seq))
     {
