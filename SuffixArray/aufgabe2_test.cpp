@@ -1,5 +1,5 @@
- //compile with
- //g++ -std=c++17 -Wall -pedantic -fsanitize=address  -O3 aufgabe2_test.cpp aufgabe2.cpp -o aufgabe2_test
+//compile with
+//g++ -std=c++17 -Wall -pedantic -fsanitize=address  -O3 aufgabe2_test.cpp aufgabe2.cpp -o aufgabe2_test
 
 #include <iostream>
 #include <string>
@@ -126,13 +126,13 @@ bool test_no_hit()
 }
 
 
- //test if the implementation does not use the naive implementation using std::vector<string>
+//test if the implementation does not use the naive implementation using std::vector<string>
 bool test_speed()
 {
     srand(0);
     std::string big(100000, ' '); // 'large' random text
     for (auto& c : big) c = rand() % 128;
-   /*  time the construction*/
+    /*  time the construction*/
     auto begin = std::chrono::steady_clock::now();
     construct(sa, big);
     auto end = std::chrono::steady_clock::now();
@@ -153,7 +153,7 @@ bool test_speed()
     }
 }
 
-
+/*
 int main()
 {
 
@@ -188,7 +188,7 @@ int main()
         ++err_count;
         std::cerr << "test_single_char failed!\n";
     }
-    
+
     if (!test_overlap())
     {
         ++err_count;
@@ -219,3 +219,4 @@ int main()
 
     return err_count;
 }
+*/
