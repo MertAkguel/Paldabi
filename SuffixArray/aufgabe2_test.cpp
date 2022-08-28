@@ -153,7 +153,7 @@ bool test_speed()
     }
 }
 
-/*
+
 int main()
 {
 
@@ -219,4 +219,3 @@ int main()
 
     return err_count;
 }
-*/
