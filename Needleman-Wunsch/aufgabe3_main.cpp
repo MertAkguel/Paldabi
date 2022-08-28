@@ -3,7 +3,7 @@
 #include <vector>
 #include "Alignment.hpp"
 
-/*
+
 int main(int argc, char* argv[])
 {
     std::string seqv = argv[1];
@@ -49,4 +49,3 @@ int main(int argc, char* argv[])
 
 
 }
-*/
