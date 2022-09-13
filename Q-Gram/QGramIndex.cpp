@@ -18,10 +18,11 @@
      @param q Length of q-gram (from 1 to 13).
      @throws std::invalid_argument("Invalid q!"); if NOT: 1 <= q <= 13
     */
-QGramIndex::QGramIndex(const std::string& text, const unsigned q) {
+QGramIndex::QGramIndex(const std::string &text, const unsigned q) :
+        genom(text),
+        q2(q) {
     if ((1 <= q) && (q <= 13)) {
-        this->text = text;
-        this->q2 = q;
+
         //Schritt 1: dir mit Nullen auffüllen
         unsigned dir_length = pow(4, q);
         dir.resize(dir_length);
@@ -65,7 +66,7 @@ QGramIndex::QGramIndex(const std::string& text, const unsigned q) {
   @return the full text
 */
 const std::string &QGramIndex::getText() const {
-    return text;
+    return genom;
 }
 
 /**
@@ -122,8 +123,6 @@ unsigned QGramIndex::getQ() const {
 uint32_t QGramIndex::hash(const std::string &qgram) const {
 
     if ((qgram.size()) != this->getQ()) {
-        std::cout << qgram.size() << std::endl;
-        std::cout << getQ() << std::endl;
         throw std::invalid_argument("Invalid q-gram. Wrong length!");
     }
     uint32_t hashvalue = 0;

@@ -82,7 +82,7 @@ public:
 
 private:
     // YOUR PRIVATE MEMBER FUNCTIONS and VARIABLES HERE
-    std::string text;
+    const std::string& genom;
     unsigned q2;
     std::vector<uint32_t> dir{};
     std::vector<uint32_t> suftab{};
